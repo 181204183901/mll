@@ -1,0 +1,38 @@
+#列表是由一组任意类型的值构成的有序列表，它由方括号构成：
+number_list=[1,2,3,4]
+string_list=["a","b","c","d"]
+mixed_list=["a",3,"c",8]
+
+#字典是由一组名值对构成的无序集合，类似于其他语言中的hash map。它由大括号构成：
+ages={"john":24,"sarah":28,"mike":31}
+
+#返回p1和p2的皮尔逊相关系数
+def sim_pearson(prefs,p1,p2):
+#得到双方都曾评价过的物品列表
+si={}
+for item in prefs[p1]:
+if item in prefs[p2]:si[item]=1
+
+#得到列表元素个数
+n=len(si)
+
+#如果两者没有共同之处，则返回1
+if n==0:  return 1
+
+#对所以偏好求和
+sum1=sum([prafs[p1][it] for it in si])
+sum2=sum([prafs[p2][it] for it in si])
+
+#求平方和
+sun1sq=sum([pow(prefs[p1][it],2) for it in si])
+sun2sq=sum([pow(prefs[p2][it],2) for it in si])
+
+#求乘积之和
+psum=sum([prefs[p1][it]*prefs[p2][it] for it in si])
+
+#计算皮尔逊评价值
+num=psum-(sum1*sum2/n)
+den=sqrt((sum1sq-pow(sum1,2)/n)*(sum2sq-pow(sum2,2)/n))
+if den==0:  return 0
+r=num/den
+return r
